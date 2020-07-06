@@ -142,6 +142,7 @@ func (t *TagContext) tagFiles(path string, f os.FileInfo, err error) error {
 
 		file, err := os.OpenFile(path, os.O_RDONLY, 0666)
 		if err != nil {
+			fmt.Println("OpenFile: ", path)
 			return err
 		}
 		defer file.Close()
@@ -184,6 +185,7 @@ func (t *TagContext) tagFiles(path string, f os.FileInfo, err error) error {
 		processed = false
 		headerExist, err := applier.CheckHeader(file, t)
 		if err != nil {
+			fmt.Println("CheckHeader: ", path)
 			return err
 		}
 		if headerExist {
@@ -193,6 +195,7 @@ func (t *TagContext) tagFiles(path string, f os.FileInfo, err error) error {
 		if !t.dryRun {
 			err = applier.ApplyHeader(path, t)
 			if err != nil {
+				fmt.Println("ApplyHeader: ", path)
 				return err
 			}
 		}
