@@ -82,6 +82,7 @@ func main() {
 	}
 
 	excludeList := strings.Split(*excludes, " ")
+	fmt.Println("Exclude list:", excludeList)
 
 	templateFiles := TemplateFiles{
 		mTemplateFile:  makeTFile,
