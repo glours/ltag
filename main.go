@@ -97,6 +97,7 @@ func main() {
 		dryRun:        *dryRun}
 
 	if err = filepath.Walk(*ppath, t.tagFiles); err != nil {
+		fmt.Println("ça panique sa mère 😕")
 		panic(err)
 	}
 
@@ -110,6 +111,7 @@ func main() {
 		}
 	}
 	if *dryRun && len(t.outfileList) > 0 {
+		fmt.Println(t.outfileList)
 		os.Exit(1)
 	}
 }
@@ -140,7 +142,6 @@ func (t *TagContext) tagFiles(path string, f os.FileInfo, err error) error {
 		if f.Name() == "LICENSE" || f.Name() == "MAINTAINERS" {
 			return nil
 		}
-
 		file, err := os.OpenFile(path, os.O_RDONLY, 0666)
 		if err != nil {
 			fmt.Println("OpenFile: ", path)
@@ -181,6 +182,7 @@ func (t *TagContext) tagFiles(path string, f os.FileInfo, err error) error {
 			}
 		}
 		if !processed {
+			fmt.Printf("Fname: %s, processed: %t\n", fname, processed)
 			return nil
 		}
 		processed = false
@@ -190,6 +192,7 @@ func (t *TagContext) tagFiles(path string, f os.FileInfo, err error) error {
 			return err
 		}
 		if headerExist {
+			fmt.Printf("Fname: %s, headerExist: %t\n", fname, headerExist)
 			return nil
 		}
 
